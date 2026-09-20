@@ -12,6 +12,9 @@ namespace CalculatriceFacture
         public Form1()
         {
             InitializeComponent();
+            this.Text = "Calculatrice Facture";
+            this.Update();
+
         }
 
         private void button7_Click(object sender, EventArgs e)
