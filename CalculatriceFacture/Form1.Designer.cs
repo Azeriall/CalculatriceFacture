@@ -137,6 +137,7 @@
             textBox3.TabIndex = 13;
             textBox3.Text = "Résultat:";
             textBox3.TextAlign = HorizontalAlignment.Center;
+            textBox3.TextChanged += textBox3_TextChanged;
             // 
             // contextMenuStrip1
             // 

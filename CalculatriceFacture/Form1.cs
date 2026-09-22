@@ -162,10 +162,12 @@ namespace CalculatriceFacture
             button8.FlatAppearance.BorderSize = 0;
 
             // textbox % appliqué
-            textBox4.BackColor = Color.FromArgb(64,64,64);
+            textBox4.BackColor = Color.FromArgb(64, 64, 64);
             textBox4.BorderStyle = BorderStyle.None;
             textBox4.ReadOnly = true;
 
+            // résultat
+            textBox3.ReadOnly = true;
 
         }
 
@@ -180,6 +182,11 @@ namespace CalculatriceFacture
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
         {
 
         }
