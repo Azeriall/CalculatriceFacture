@@ -1,7 +1,10 @@
+using System.Globalization;
+
 namespace CalculatriceFacture
 {
     public partial class Form1 : Form
     {
+
         double percentValue = 0;
         double prix = 0.0;
         double nombreTotal = 0.0;
@@ -19,10 +22,14 @@ namespace CalculatriceFacture
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (double.TryParse(textBox1.Text, out percentValue))
+
+            if (double.TryParse(textBox1.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out percentValue))
             {
                 MessageBox.Show($"{textBox1.Text} % appliqué");
                 textBox1.Clear();
+                textBox4.ReadOnly = false;
+                textBox4.Text = $"{percentValue}%";
+                textBox4.ReadOnly = true;
             }
             else
             {
@@ -33,12 +40,11 @@ namespace CalculatriceFacture
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (double.TryParse(textBox2.Text, out prix))
+            if (double.TryParse(textBox2.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out prix))
             {
                 nombreAAjouter = (prix / 100 * percentValue);
-                nombreAAjouter = Math.Round(nombreAAjouter, 3);
                 nombreTotal = nombreTotal + nombreAAjouter;
-                montantAjouter.Add($"Montant de {textBox2.Text} à {percentValue} % -> {nombreAAjouter:F2}");
+                montantAjouter.Add($"{textBox2.Text} à {percentValue} % -> {nombreAAjouter:F2}");
                 montantTotal.Add($"Total: {nombreTotal:F2}");
                 listBox3.DataSource = null;
                 listBox3.DataSource = montantTotal;
@@ -66,12 +72,12 @@ namespace CalculatriceFacture
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
-                if (double.TryParse(textBox2.Text, out prix))
+                if (double.TryParse(textBox2.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out prix))
                 {
                     nombreAAjouter = (prix / 100 * percentValue);
                     nombreAAjouter = Math.Round(nombreAAjouter, 3);
                     nombreTotal = nombreTotal + nombreAAjouter;
-                    montantAjouter.Add($"Montant de {textBox2.Text} à {percentValue} % -> {nombreAAjouter:F2}");
+                    montantAjouter.Add($"{textBox2.Text} à {percentValue} % -> {nombreAAjouter:F2}");
                     montantTotal.Add($"Total: {nombreTotal:F2}");
                     listBox3.DataSource = null;
                     listBox3.DataSource = montantTotal;
@@ -91,6 +97,7 @@ namespace CalculatriceFacture
 
         private void button5_Click(object sender, EventArgs e)
         {
+            nombreTotal = Math.Round(nombreTotal, 3);
             textBox3.Text = $"{nombreTotal:F2}";
         }
 
@@ -108,6 +115,7 @@ namespace CalculatriceFacture
             listBox1.DataSource = montantAjouter;
             textBox3.Clear();
             textBox2.Clear();
+            textBox4.Clear();
             MessageBox.Show("Réinitialisation réussi");
         }
 
@@ -116,10 +124,13 @@ namespace CalculatriceFacture
             if (e.KeyData == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                if (double.TryParse(textBox1.Text, out percentValue))
+                if (double.TryParse(textBox1.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out percentValue))
                 {
                     MessageBox.Show($"{textBox1.Text} % appliqué");
                     textBox1.Clear();
+                    textBox4.ReadOnly = false;
+                    textBox4.Text = $"{percentValue}%";
+                    textBox4.ReadOnly = true;
                 }
                 else
                 {
@@ -150,9 +161,25 @@ namespace CalculatriceFacture
             button8.FlatStyle = FlatStyle.Flat;
             button8.FlatAppearance.BorderSize = 0;
 
+            // textbox % appliqué
+            textBox4.BackColor = Color.FromArgb(64,64,64);
+            textBox4.BorderStyle = BorderStyle.None;
+            textBox4.ReadOnly = true;
+
+
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
         }
